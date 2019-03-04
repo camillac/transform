@@ -30,7 +30,6 @@ struct matrix * make_translate(double x, double y, double z) {
   mtrx->m[1][3] = y;
   mtrx->m[2][3] = z;
 
-  print_matrix(mtrx);
   return mtrx;
 }
 

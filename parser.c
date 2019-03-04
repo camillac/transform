@@ -99,19 +99,18 @@ void parse_file ( char * filename,
 
   while ( fgets(line, 255, f) != NULL ) {
     line[strlen(line)-1]='\0';
-    printf(":%s:\n",line);
+    // printf(":%s:\n",line);
 
     // === LINE ===
     if (strcmp(line, "line") == 0){
       fgets(line, 255, f);
       line[strlen(line)-1]='\0';
-      printf(":%s:\n",line);
+      // printf(":%s:\n",line);
       // string array of vals
       vals = calloc(6, sizeof(double));
       char ** array =  parse_args(line, " ");
       for (int i = 0; i < 6; i++){
         vals[i] = atof(array[i]);
-        printf("%lf\n", vals[i]);
       }
       add_edge(edges, vals[0], vals[1], vals[2], vals[3], vals[4], vals[5]);
       free(array);
@@ -127,7 +126,7 @@ void parse_file ( char * filename,
     else if (strcmp(line, "scale") == 0){
       fgets(line, 255, f);
       line[strlen(line)-1]='\0';
-      printf(":%s:\n",line);
+      // printf(":%s:\n",line);
       // string array of vals
       vals = calloc(3, sizeof(double) == 0);
       char ** array =  parse_args(line, " ");
@@ -145,19 +144,15 @@ void parse_file ( char * filename,
     else if (strcmp(line, "move") == 0){
       fgets(line, 255, f);
       line[strlen(line)-1]='\0';
-      printf(":%s:\n",line);
+      // printf(":%s:\n",line);
       // string array of vals
       vals = calloc(3, sizeof(double));
       char ** array =  parse_args(line, " ");
       for (int i = 0; i < 3; i++){
         vals[i] = atof(array[i]);
-        printf("%lf\n", vals[i]);
       }
       struct matrix * move = make_translate(vals[0], vals[1], vals[2]);
       matrix_mult(move, transform);
-
-      print_matrix(move);
-      print_matrix(transform);
 
       free(array);
       free(vals);
@@ -167,20 +162,20 @@ void parse_file ( char * filename,
     else if (strcmp(line, "rotate") == 0){
       fgets(line, 255, f);
       line[strlen(line)-1]='\0';
-      printf(":%s:\n",line);
+      // printf(":%s:\n",line);
       // string array of vals
       vals = calloc(1, sizeof(double));
       char ** array =  parse_args(line, " ");
       vals[0] = atof(array[1]);
 
       struct matrix * rotate;
-      if (strcmp(array[0], "x")){
+      if (strcmp(array[0], "x") == 0){
         rotate = make_rotX(vals[0]);
       }
-      else if (strcmp(array[0], "y")){
+      else if (strcmp(array[0], "y") == 0){
         rotate = make_rotY(vals[0]);
       }
-      else if (strcmp(array[0], "z")){
+      else if (strcmp(array[0], "z") == 0){
         rotate = make_rotZ(vals[0]);
       }
       else {
@@ -209,13 +204,12 @@ void parse_file ( char * filename,
       clear_screen(s);
       fgets(line, 255, f);
       line[strlen(line)-1]='\0';
-      printf(":%s:\n",line);
+      // printf(":%s:\n",line);
 
-      print_matrix(edges);
       draw_lines(edges, s, c);
 
       char ** array =  parse_args(line, " ");
-      printf("SAVE: %s\n", array[0]);
+      // printf("SAVE: %s\n", array[0]);
       save_extension(s, array[0]);
     }
 
